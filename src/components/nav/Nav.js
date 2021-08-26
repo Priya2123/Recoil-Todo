@@ -48,22 +48,21 @@ export default function ButtonAppBar() {
       <AppBar position="static" className={classes.nav}>
         <Toolbar>
           <img
-            style={{ height: "9%", width: "9%", zIndex: "101" }}
-            src="https://cdni.iconscout.com/illustration/premium/thumb/man-studying-research-paper-2407302-2012369.png"
+            style={{ height: "6%", width: "7%", zIndex: "101" }}
+            src="https://th.bing.com/th/id/R.071eb10e44fa89c7e13c389f27346a72?rik=%2bf2dhQxiHmQyoQ&riu=http%3a%2f%2fwww.clker.com%2fcliparts%2fx%2fn%2f7%2fm%2fp%2fg%2fcheck-mark-in-white-hi.png&ehk=6WPax6dqWQjs4ZJLqZymZNiQu5TZnlJO7jqRA3O4aDo%3d&risl=&pid=ImgRaw&r=0"
             alt=""
           />
-          <Typography variant="h5" className={classes.title}>
+          <Typography variant="h4" className={classes.title}>
             <Link to="/" style={{ textDecoration: "none" }}>
               <span
                 style={{
-                  color: "#61dafb",
+                  color: "#fff",
                   fontWeight: "bold",
                   marginLeft: "1%",
                 }}
               >
-                PDF
+                Todo
               </span>{" "}
-              <span style={{ color: "white" }}>FINDER</span>
               <br />
             </Link>
             <Typography
@@ -71,7 +70,7 @@ export default function ButtonAppBar() {
               style={{ fontSize: "10px", zIndex: "101" }}
               className={classes.title}
             >
-              BUILT WITH {`<3`} BY @OLDMONKS
+              BUILT WITH {`<3`} BY @PRIYA
             </Typography>
           </Typography>
           <Link to="/" className={classes.link}>
@@ -86,17 +85,7 @@ export default function ButtonAppBar() {
               className={classes.button}
               style={{ marginLeft: "1%", zIndex: "101" }}
             >
-              Start
-            </Button>
-          </Link>
-          <Link to="/about">
-            {" "}
-            <Button
-              color="inherit"
-              className={classes.button}
-              style={{ marginLeft: "1%", zIndex: "101" }}
-            >
-              About Us
+              Log In
             </Button>
           </Link>
         </Toolbar>
