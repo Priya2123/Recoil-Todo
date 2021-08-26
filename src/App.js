@@ -2,11 +2,13 @@ import React from "react";
 import { RecoilRoot } from "recoil";
 import AddTodo from "./components/AddTodo";
 import Todos from "./components/Todos";
+import { Landing, Nav } from "./components";
 
 function App() {
   return (
     <RecoilRoot>
       <div className="App tc">
+        <Nav />
         <h1 className="">
           Todos{" "}
           <span role="img" aria-label="flag">
