@@ -1,15 +1,11 @@
 import React from "react";
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
-import useLocalStorage from "../hooks/useLocalStorage";
-import { todoListState } from "../lib/atoms";
+import useLocalStorage from "../../hooks/useLocalStorage";
+import { todoListState } from "../../lib/atoms";
+import "./styles.css";
+import { Grid, Typography, TextField } from "@material-ui/core";
 
 function Todos() {
-  // const [persistedTodo, setPersistedTodo] = useLocalStorage("todos", []);
-  // const todoListState = atom({
-  //   key: "todoListState",
-  //   default: persistedTodo,
-  // });
-
   const todoList = useRecoilValue(todoListState);
   const setTodoList = useSetRecoilState(todoListState);
   const deleteTodo = (index) => {
@@ -41,6 +37,7 @@ function Todos() {
     <ul className="ph4 tl">
       {todoList.map((todo, index) => (
         <li className="pb3" key={index + 100}>
+          <TextField id="standard-basic" label="Standard" />
           <input
             type="checkbox"
             id="todo"
@@ -50,7 +47,11 @@ function Todos() {
               toggleTodo(index);
             }}
           />
-          <label htmlFor="todo" data-content={todo.text}>
+          <label
+            htmlFor="todo"
+            data-content={todo.text}
+            style={{ color: "#e39ff6", letterSpacing: "0.05em" }}
+          >
             {todo.text}
           </label>
           <button onClick={() => deleteTodo(index)}>x</button>

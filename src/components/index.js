@@ -1,3 +1,4 @@
 import Landing from "./landing/Landing";
 import Nav from "./nav/Nav";
-export { Landing, Nav };
+import TodoPage from "./todoPage/TodoPage";
+export { Landing, Nav, TodoPage };

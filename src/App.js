@@ -1,8 +1,6 @@
 import React from "react";
 import { RecoilRoot } from "recoil";
-import AddTodo from "./components/AddTodo";
-import Todos from "./components/Todos";
-import { Landing, Nav } from "./components";
+import { Landing, Nav, TodoPage } from "./components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 
 function App() {
@@ -20,6 +18,7 @@ function App() {
           <Nav />
           <Switch>
             <Route exact path="/" component={Landing} />
+            <Route exact path="/todo" component={TodoPage} />
           </Switch>
           {/* <div className="list pt3 br3">
           <Todos />

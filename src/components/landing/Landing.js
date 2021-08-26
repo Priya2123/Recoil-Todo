@@ -1,8 +1,9 @@
 import React from "react";
-import { Grid, Typography } from "@material-ui/core";
+import { Grid, Typography, Button } from "@material-ui/core";
 import { useStyles } from "./LandingStyles";
 import Lottie from "react-lottie";
 import animation from "./animation.json";
+import { Link } from "react-router-dom";
 
 const Landing = () => {
   const classes = useStyles();
@@ -30,9 +31,22 @@ const Landing = () => {
           <Grid container justify="center" lg={12} md={12}>
             <Grid item lg={12} md={12}>
               <Lottie
-                //   style={{ height: "100%" }}
+                style={{ height: "45vh", width: "50%" }}
                 options={defaultOptions}
               />
+            </Grid>
+          </Grid>
+          <Grid
+            container
+            justify="center"
+            lg={12}
+            md={12}
+            style={{ paddingTop: "1%" }}
+          >
+            <Grid item lg={2} md={2} justify="center">
+              <Link to="/todo">
+                <Button className={classes.btn}>Getting Started</Button>
+              </Link>
             </Grid>
           </Grid>
         </Grid>
