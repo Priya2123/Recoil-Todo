@@ -3,7 +3,7 @@ import { atom, useRecoilState, useSetRecoilState } from "recoil";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { textState, todoListState } from "../../lib/atoms";
 import "./styles.css";
-import { TextField, Grid, Tooltip, Fab } from "@material-ui/core";
+import { Grid, Tooltip, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 
 function AddTodo() {
@@ -34,17 +34,17 @@ function AddTodo() {
   };
 
   return (
-    <Grid container lg={12} md={12} justify="center">
-      <Grid item lg={7} md={7}>
-        <form>
+    <form>
+      <Grid container lg={12} md={12} justify="center">
+        <Grid item lg={1} md={1}>
           <Tooltip title="Add" aria-label="add">
-            <Fab color="primary">
-              <AddIcon />
+            <Fab style={{ backgroundColor: "#e39ff6" }}>
+              <AddIcon onClick={addItem} style={{ color: "#fff" }} />
             </Fab>
           </Tooltip>
+        </Grid>
+        <Grid item lg={7} md={7}>
           <input
-            id="standard-basic"
-            label="Standard"
             style={{
               color: "#e39ff6",
               border: "1px dashed #e39ff6",
@@ -55,14 +55,9 @@ function AddTodo() {
             onChange={onChange}
             placeholder="Add Todo"
           />
-        </form>
+        </Grid>
       </Grid>
-    </Grid>
-    // {/* <form className="">
-
-    //   {/* <input type="text" value={text} onChange={onChange} /> */}
-    //   <button onClick={addItem}>Add</button>
-    // </form> */}
+    </form>
   );
 }
 
