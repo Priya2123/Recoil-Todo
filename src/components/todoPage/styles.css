@@ -8,16 +8,18 @@ ul {
   }
   
   button {
-    /* line-height: 22px; */
-    /* padding: 0 8px 2px; */
+    /* line-height: 15px; */
+    padding: 0 4px 2px;
     background: #000;
     color: #e39ff6;
     border: 2px solid #e39ff6;
-    font-size: 18px;
+    font-size: 13px;
     font-weight: bold;
     border-radius: 3px;
-    /* vertical-align: top; */
+    vertical-align: middle;
     cursor: pointer;
+    justify-content: center;
+    align-items: center;
   }
   input + button {
     /* line-height: 30px; */
@@ -41,6 +43,7 @@ ul {
   }
   input[type="checkbox"] {
     position: relative;
+    vertical-align: middle;
     width: 1.5em;
     height: 1.5em;
     color: #e39ff6;
@@ -82,15 +85,15 @@ ul {
   label {
     position: relative;
     cursor: pointer;
-    font-size: 1.5em;
+    font-size: 22px;
     font-weight: 600;
-    /* padding: 0 1em 0; */
+    padding: 0 1em 0;
     user-select: none;
-    /* vertical-align: top; */
+    vertical-align: middle;
   }
   
   label::before {
-    /* position: absolute; */
+    position: absolute;
     content: attr(data-content);
     color: #e39ff6;
     clip-path: polygon(0 0, 0 0, 0% 100%, 0 100%);

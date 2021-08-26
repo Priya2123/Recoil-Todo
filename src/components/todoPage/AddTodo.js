@@ -32,6 +32,12 @@ function AddTodo() {
   const onChange = (e) => {
     setText(e.target.value);
   };
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      addItem();
+    }
+  };
 
   return (
     <form>
@@ -53,6 +59,7 @@ function AddTodo() {
             type="text"
             value={text}
             onChange={onChange}
+            onKeyPress={handleKeypress}
             placeholder="Add Todo"
           />
         </Grid>

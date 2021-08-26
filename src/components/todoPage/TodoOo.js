@@ -34,30 +34,37 @@ function Todos() {
     });
   };
   return (
-    <ul className="ph4 tl">
-      {todoList.map((todo, index) => (
-        <li className="pb3" key={index + 100}>
-          <TextField id="standard-basic" label="Standard" />
-          <input
-            type="checkbox"
-            id="todo"
-            name="todo"
-            checked={todo.isComplete}
-            onChange={() => {
-              toggleTodo(index);
-            }}
-          />
-          <label
-            htmlFor="todo"
-            data-content={todo.text}
-            style={{ color: "#e39ff6", letterSpacing: "0.05em" }}
-          >
-            {todo.text}
-          </label>
-          <button onClick={() => deleteTodo(index)}>x</button>
-        </li>
-      ))}
-    </ul>
+    <Grid container lg={12} md={12} justify="center">
+      <Grid item lg={7} md={7}>
+        <ul>
+          {todoList.map((todo, index) => (
+            <>
+              <li>
+                <input
+                  type="checkbox"
+                  id="todo"
+                  name="todo"
+                  checked={todo.isComplete}
+                  onChange={() => {
+                    toggleTodo(index);
+                  }}
+                />
+                <label
+                  htmlFor="todo"
+                  data-content={todo.text}
+                  style={{
+                    color: "#e39ff6",
+                  }}
+                >
+                  {todo.text}
+                </label>
+                <button onClick={() => deleteTodo(index)}>x</button>
+              </li>
+            </>
+          ))}
+        </ul>
+      </Grid>
+    </Grid>
   );
 }
 

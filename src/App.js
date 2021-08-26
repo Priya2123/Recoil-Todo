@@ -7,7 +7,7 @@ function App() {
   return (
     <RecoilRoot>
       <Router>
-        <div style={{ backgroundColor: "#000", height: "100vh" }}>
+        <div style={{ backgroundColor: "#000", minHeight: "100vh" }}>
           {/* <Nav /> */}
           {/* <h1 className="">
             Todos{" "}
