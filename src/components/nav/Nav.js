@@ -79,7 +79,7 @@ export default function ButtonAppBar() {
               Home
             </Button>
           </Link>
-          <Link to="/gettingStarted">
+          <Link to="/login">
             <Button
               color="inherit"
               className={classes.button}

@@ -11,4 +11,11 @@ export const useStyles = makeStyles((theme) => ({
     cursor: "pointer",
     padding: "10px 35px",
   },
+  lottie: {
+    height: "45vh",
+    // width: "50%",
+    [theme.breakpoints.down("sm")]: {
+      width: "100vw",
+    },
+  },
 }));

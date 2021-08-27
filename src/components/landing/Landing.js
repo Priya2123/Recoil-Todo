@@ -19,7 +19,7 @@ const Landing = () => {
 
   return (
     <>
-      <Grid container lg={12} md={12} style={{ marginTop: "5%" }}>
+      <Grid container lg={12} md={12} style={{ marginTop: "3%" }}>
         <Grid item lg={12} md={12}>
           <Grid container justify="center" style={{ textAlign: "center" }}>
             <Grid item lg={12} md={12}>
@@ -29,9 +29,10 @@ const Landing = () => {
             </Grid>
           </Grid>
           <Grid container justify="center" lg={12} md={12}>
-            <Grid item lg={12} md={12}>
+            <Grid item lg={6} md={6}>
               <Lottie
-                style={{ height: "45vh", width: "50%" }}
+                // className={classes.lottie}
+                style={{ height: "50vh", width: "100%" }}
                 options={defaultOptions}
               />
             </Grid>
