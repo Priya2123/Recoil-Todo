@@ -3,8 +3,8 @@ ul {
   }
   
   .list {
-    border: 2px dashed #e39ff6;
-    /* display: inline-block; */
+    border: 2px solid #e39ff6;
+    /* display: flex; */
   }
   
   button {

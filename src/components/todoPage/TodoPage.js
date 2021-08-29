@@ -8,24 +8,14 @@ import TodoOo from "./TodoOo";
 const TodoPage = () => {
   return (
     <>
-      {/* <Grid container lg={12} md={12}>
-        <Grid item lg={12} md={12}>
-          <Typography style={{ color: "#e39ff6" }}>Todos</Typography>
-          <span role="img" aria-label="flag">
-            🏁
-          </span>
+      <Grid container lg={12} md={12} justify="center">
+        <Grid item lg={8} md={8}>
+          <div className="list pt3 br3">
+            <TodoOo />
+            <AddTodo />
+          </div>
         </Grid>
-      </Grid> */}
-      <h1 className="">
-        {/* Todos{" "}
-        <span role="img" aria-label="flag">
-          🏁
-        </span> */}
-        <div className="list pt3 br3">
-          <AddTodo />
-          <TodoOo />
-        </div>
-      </h1>
+      </Grid>
     </>
   );
 };

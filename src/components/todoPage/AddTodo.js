@@ -13,6 +13,14 @@ function AddTodo() {
   //   key: "todoListState",
   //   default: persistedTodo,
   // });
+  const handleKeypress = (e) => {
+    //it triggers by pressing the enter key
+    if (e.keyCode === 13) {
+      // setText("");
+      addItem();
+      // setText("");
+    }
+  };
   const setTodoList = useSetRecoilState(todoListState);
   const addItem = (e) => {
     e.preventDefault();
@@ -28,32 +36,27 @@ function AddTodo() {
       // setPersistedTodo(newTodoList);
       return newTodoList;
     });
+    setText("");
   };
   const onChange = (e) => {
     setText(e.target.value);
   };
-  const handleKeypress = (e) => {
-    //it triggers by pressing the enter key
-    if (e.keyCode === 13) {
-      addItem();
-    }
-  };
 
   return (
-    <form>
+    <form type="submit">
       <Grid container lg={12} md={12} justify="center">
         <Grid item lg={1} md={1}>
           <Tooltip title="Add" aria-label="add">
-            <Fab style={{ backgroundColor: "#e39ff6" }}>
-              <AddIcon onClick={addItem} style={{ color: "#fff" }} />
+            <Fab size="small" style={{ backgroundColor: "#e39ff6" }}>
+              <AddIcon small onClick={addItem} style={{ color: "#fff" }} />
             </Fab>
           </Tooltip>
         </Grid>
-        <Grid item lg={7} md={7}>
+        <Grid item lg={8} md={8}>
           <input
             style={{
               color: "#e39ff6",
-              border: "1px dashed #e39ff6",
+              // border: "1px dashed #e39ff6",
               width: "100%",
             }}
             type="text"

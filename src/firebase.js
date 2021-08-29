@@ -1,4 +1,5 @@
 import firebase from "firebase";
+import { initializeApp } from "firebase/app";
 const firebaseConfig = {
   apiKey: "AIzaSyC-UtgtIS6ILmDRR4Sf428MqsvxoLwrl4Y",
   authDomain: "toodles-df8a5.firebaseapp.com",
@@ -9,6 +10,7 @@ const firebaseConfig = {
   measurementId: "G-5PDWGTBHWP",
 };
 
+const app = initializeApp(firebaseConfig);
 firebase.initializeApp(firebaseConfig);
 var auth = firebase.auth();
 var provider = new firebase.auth.GoogleAuthProvider();

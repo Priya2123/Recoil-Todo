@@ -1,16 +1,106 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import { RecoilRoot } from "recoil";
 import { Landing, Nav, TodoPage, LoginForm } from "./components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
+import fire from "./base";
 
-function App() {
-  if (!localStorage.getItem("username")) return <LoginForm />;
+const App = () => {
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [error, setError] = useState("");
+  const [user, setUser] = useState("");
+  const [emailError, setEmailError] = useState("");
+  const [passwordError, setPasswordError] = useState("");
+  const [hasAccount, setHasAccount] = useState(false);
+
+  const clearInputs = () => {
+    setEmail("");
+    setPassword("");
+  };
+
+  const clearErrors = () => {
+    setEmailError("");
+    setPasswordError("");
+  };
+
+  const handleLogin = () => {
+    clearErrors();
+    fire
+      .auth()
+      .signInWithEmailAndPassword(email, password)
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth/user-not-found":
+            setEmailError(err.message);
+            break;
+          case "auth/wrong-password":
+            setPasswordError(err.message);
+            break;
+        }
+      });
+  };
+
+  const handleSignIn = () => {
+    clearErrors();
+    fire
+      .auth()
+      .createUserWithEmailAndPassword(email, password)
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/invalid-email":
+          case "auth/email-already-in-use":
+            setEmailError(err.message);
+            break;
+          case "auth/weak-password":
+            setPasswordError(err.message);
+            break;
+        }
+      });
+  };
+
+  const logout = () => {
+    fire.auth().signOut();
+  };
+
+  const authListener = () => {
+    fire.auth().onAuthStateChanged((user) => {
+      if (user) {
+        clearInputs();
+        setUser(user);
+      } else {
+        setUser("");
+      }
+    });
+  };
+
+  useEffect(() => {
+    authListener();
+  }, []);
+
+  if (!localStorage.getItem("username"))
+    return (
+      <LoginForm
+        email={email}
+        password={password}
+        setEmail={setEmail}
+        setPassword={setPassword}
+        handleLogin={handleLogin}
+        handleSignIn={handleSignIn}
+        hasAccount={hasAccount}
+        setHasAccount={setHasAccount}
+        emailError={emailError}
+        passwordError={passwordError}
+      />
+    );
   return (
     <RecoilRoot>
       <Router>
         <div style={{ backgroundColor: "#000", minHeight: "100vh" }}>
           <Nav />
+          {/* <LoginForm email={email} password={password} setEmail={setEmail} setPassword={setPassword} handleLogin={handleLogin} handleSignIn={handleSignIn} hasAccount={hasAccount} setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError} /> */}
           <Switch>
             <Route exact path="/" component={Landing} />
             <PrivateRoute exact path="/todo" component={TodoPage} />
@@ -20,6 +110,6 @@ function App() {
       </Router>
     </RecoilRoot>
   );
-}
+};
 
 export default App;

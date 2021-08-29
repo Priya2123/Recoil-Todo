@@ -32,7 +32,7 @@ const useStyles = makeStyles((theme) => ({
     textDecoration: "none",
     color: "white",
     zIndex: "101",
-    width: "100%",
+    // width: "100%",
     "&:hover": {
       textDecoration: "underline",
       // borderBottom: "1px solid #fff",
@@ -61,7 +61,7 @@ export default function ButtonAppBar() {
                   marginLeft: "1%",
                 }}
               >
-                Todo
+                To-do
               </span>{" "}
               <br />
             </Link>
@@ -79,15 +79,15 @@ export default function ButtonAppBar() {
               Home
             </Button>
           </Link>
-          <Link to="/login">
-            <Button
-              color="inherit"
-              className={classes.button}
-              style={{ marginLeft: "1%", zIndex: "101" }}
-            >
-              Log In
-            </Button>
-          </Link>
+          {/* <Link to=""> */}
+          <Button
+            color="inherit"
+            className={classes.button}
+            style={{ marginLeft: "1%", zIndex: "101" }}
+          >
+            Log Out
+          </Button>
+          {/* </Link> */}
         </Toolbar>
       </AppBar>
     </div>

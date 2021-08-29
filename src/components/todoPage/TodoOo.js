@@ -6,6 +6,11 @@ import "./styles.css";
 import { Grid, Typography, TextField } from "@material-ui/core";
 
 function Todos() {
+  // const [persistedTodo, setPersistedTodo] = useLocalStorage("todos", []);
+  // const todoListState = atom({
+  //   key: "todoListState",
+  //   default: persistedTodo,
+  // });
   const todoList = useRecoilValue(todoListState);
   const setTodoList = useSetRecoilState(todoListState);
   const deleteTodo = (index) => {
@@ -39,7 +44,12 @@ function Todos() {
         <ul>
           {todoList.map((todo, index) => (
             <>
-              <li>
+              <li
+                style={{
+                  paddingBottom: "1%",
+                  borderBottom: "1px solid #e39ff6",
+                }}
+              >
                 <input
                   type="checkbox"
                   id="todo"
