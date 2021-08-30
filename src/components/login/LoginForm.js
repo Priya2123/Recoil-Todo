@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import "./styles.css";
 import fire from "../../base";
-
+import { Typography } from "@material-ui/core";
 const LoginForm = (props) => {
   const {
     email,
@@ -40,7 +40,7 @@ const LoginForm = (props) => {
             type="text"
             value={email}
             onChange={(e) => setEmail(e.target.value)}
-            className="input"
+            className="input1"
             placeholder="Username"
             style={{ backgroundColor: "rgb(255, 255, 255)" }}
             required
@@ -49,12 +49,24 @@ const LoginForm = (props) => {
             type="password"
             value={password}
             onChange={(e) => setPassword(e.target.value)}
-            className="input"
+            className="input2"
             placeholder="Password"
             required
           />
+          <Typography
+            variant="caption"
+            style={{
+              color: "white",
+              display: "flex",
+              justifyContent: "flex-end",
+              width: "95%",
+              marginBottom: "25px",
+            }}
+          >
+            Password should be at least 8 characters long
+          </Typography>
           <div align="center">
-            <button className="button" type="submit" onClick={handleLogin}>
+            <button className="button" type="submit" onClick={handleSignIn}>
               <span>Start Kaam</span>
             </button>
           </div>

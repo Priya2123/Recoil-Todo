@@ -12,6 +12,7 @@ function Todos() {
   //   default: persistedTodo,
   // });
   const todoList = useRecoilValue(todoListState);
+  console.log(todoList);
   const setTodoList = useSetRecoilState(todoListState);
   const deleteTodo = (index) => {
     setTodoList((oldTodoList) => {

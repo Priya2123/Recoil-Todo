@@ -80,16 +80,16 @@ export default function ButtonAppBar(props) {
               Home
             </Button>
           </Link>
-          {/* <Link to=""> */}
-          <Button
-            onClick={logout}
-            color="inherit"
-            className={classes.button}
-            style={{ marginLeft: "1%", zIndex: "101" }}
-          >
-            Log Out
-          </Button>
-          {/* </Link> */}
+          <Link to="/login">
+            <Button
+              onClick={logout}
+              color="inherit"
+              className={classes.button}
+              style={{ marginLeft: "1%", zIndex: "101", width: "100%" }}
+            >
+              Log Out
+            </Button>
+          </Link>
         </Toolbar>
       </AppBar>
     </div>

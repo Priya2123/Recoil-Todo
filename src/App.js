@@ -8,7 +8,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { collection } from "firebase/firestore";
 
 const App = () => {
   const [email, setEmail] = useState("");
@@ -59,8 +58,7 @@ const App = () => {
     clearErrors();
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
-      .then((uid) => {
-        createUserInDb(uid, email, password);
+      .then(() => {
         console.log("yaay");
       })
       .catch((err) => {
@@ -122,10 +120,9 @@ const App = () => {
   //   fetchTodos();
   // }, []);
 
-  const createUserInDb = (uid, email, password) => {
-    return collection("users").doc(uid).set(email, password);
-  };
-  console.log(todo);
+  // const createUserInDb = (uid, email, password) => {
+  //   return collection("users").doc(uid).set(email, password);
+  // };
 
   useEffect(() => {
     authListener();
