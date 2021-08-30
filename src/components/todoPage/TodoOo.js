@@ -1,9 +1,10 @@
 import React from "react";
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
-import useLocalStorage from "../../hooks/useLocalStorage";
 import { todoListState } from "../../lib/atoms";
 import "./styles.css";
-import { Grid, Typography, TextField } from "@material-ui/core";
+import { Grid } from "@material-ui/core";
+import { doc, setDoc } from "firebase/firestore";
+import { auth, db } from "../../base";
 
 function Todos() {
   // const [persistedTodo, setPersistedTodo] = useLocalStorage("todos", []);
@@ -40,6 +41,50 @@ function Todos() {
     });
   };
 
+  const data = {
+    todo: todoList,
+    // uid: auth.currentUser.uid,
+  };
+  const todoRef = doc(db, "todos", "work");
+  setDoc(todoRef, { todo: todoList }, { merge: true });
+
+  setDoc(doc(db, "todos", "work"), data);
+
+  // db.collection("todos")
+  //   .doc("work")
+  //   .set(todoList)
+  //   .then(() => {
+  //     console.log("Document successfully written!");
+  //   });
+
+  // const docRef = await addDoc(collection(db, "todos"), {
+  //   todo: todoList,
+  //   uid: auth.currentUser.uid,
+  // });
+  // console.log("Document written with ID: ", docRef.id);
+
+  // db.collection("todos")
+  //   .add({
+  //     todo: todoList,
+  //     uid: auth.currentUser.uid,
+  //   })
+  //   .then((docRef) => {
+  //     console.log("Document written with ID: ", docRef.id);
+  //   })
+  //   .catch((error) => {
+  //     console.error("Error adding document: ", error);
+  //   });
+
+  // const data = {
+  //   todo: todoList,
+  //   uid: auth.currentUser.uid,
+  // };
+
+  // var newCityRef = db.collection("todos").doc();
+
+  // // later...
+  // newCityRef.set(data);
+
   return (
     <Grid container lg={12} md={12} justify="center">
       <Grid item lg={7} md={7}>
@@ -47,6 +92,7 @@ function Todos() {
           {todoList.map((todo, index) => (
             <>
               <li
+                key={todo.id}
                 style={{
                   paddingBottom: "1%",
                   borderBottom: "1px solid #e39ff6",

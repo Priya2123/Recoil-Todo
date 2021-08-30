@@ -17,7 +17,6 @@ const App = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
-  const [todo, setTodo] = useState([]);
 
   const clearInputs = () => {
     setEmail("");
@@ -108,21 +107,7 @@ const App = () => {
     });
   };
 
-  // const fetchTodos = async () => {
-  //   const response = db.collection("users");
-  //   const data = await response.get();
-  //   data.docs.forEach((item) => {
-  //     setTodo([...todo, item.data()]);
-  //   });
-  // };
-
-  // useEffect(() => {
-  //   fetchTodos();
-  // }, []);
-
-  // const createUserInDb = (uid, email, password) => {
-  //   return collection("users").doc(uid).set(email, password);
-  // };
+  console.log(user.uid);
 
   useEffect(() => {
     authListener();
