@@ -3,7 +3,12 @@ import { RecoilRoot } from "recoil";
 import { Landing, Nav, TodoPage, LoginForm } from "./components";
 import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
-import fire from "./base";
+import { auth, db } from "./base";
+import {
+  createUserWithEmailAndPassword,
+  signInWithEmailAndPassword,
+} from "firebase/auth";
+import { collection } from "firebase/firestore";
 
 const App = () => {
   const [email, setEmail] = useState("");
@@ -13,6 +18,7 @@ const App = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
+  const [todo, setTodo] = useState([]);
 
   const clearInputs = () => {
     setEmail("");
@@ -26,29 +32,39 @@ const App = () => {
 
   const handleLogin = () => {
     clearErrors();
-    fire
-      .auth()
-      .signInWithEmailAndPassword(email, password)
-      .catch((err) => {
-        switch (err.code) {
-          case "auth/invalid-email":
-          case "auth/user-disabled":
-          case "auth/user-not-found":
-            setEmailError(err.message);
-            break;
-          case "auth/wrong-password":
-            setPasswordError(err.message);
-            break;
-        }
-      });
+    signInWithEmailAndPassword(auth, email, password).catch((err) => {
+      switch (err.code) {
+        case "auth/invalid-email":
+        case "auth/user-disabled":
+        case "auth/user-not-found":
+          setEmailError(err.message);
+          break;
+        case "auth/wrong-password":
+          setPasswordError(err.message);
+          break;
+      }
+    });
+    try {
+      localStorage.setItem("username", email);
+      localStorage.setItem("password", password);
+
+      window.location.reload();
+      setError("");
+    } catch (err) {
+      setError("Oops, incorrect credentials.");
+    }
   };
 
-  const handleSignIn = () => {
+  const handleSignIn = (e) => {
     clearErrors();
-    fire
-      .auth()
-      .createUserWithEmailAndPassword(email, password)
+    e.preventDefault();
+    createUserWithEmailAndPassword(auth, email, password)
+      .then((uid) => {
+        createUserInDb(uid, email, password);
+        console.log("yaay");
+      })
       .catch((err) => {
+        console.log(err.message, "error");
         switch (err.code) {
           case "auth/invalid-email":
           case "auth/email-already-in-use":
@@ -59,14 +75,32 @@ const App = () => {
             break;
         }
       });
+    try {
+      localStorage.setItem("username", email);
+      localStorage.setItem("password", password);
+
+      window.location.reload();
+      setError("");
+    } catch (err) {
+      setError("Oops, incorrect credentials.");
+    }
   };
 
   const logout = () => {
-    fire.auth().signOut();
+    auth.signOut();
+    try {
+      localStorage.setItem("username", "");
+      localStorage.setItem("password", "");
+
+      window.location.reload();
+      setError("");
+    } catch (err) {
+      setError("Oops, incorrect credentials.");
+    }
   };
 
   const authListener = () => {
-    fire.auth().onAuthStateChanged((user) => {
+    auth.onAuthStateChanged((user) => {
       if (user) {
         clearInputs();
         setUser(user);
@@ -75,6 +109,23 @@ const App = () => {
       }
     });
   };
+
+  // const fetchTodos = async () => {
+  //   const response = db.collection("users");
+  //   const data = await response.get();
+  //   data.docs.forEach((item) => {
+  //     setTodo([...todo, item.data()]);
+  //   });
+  // };
+
+  // useEffect(() => {
+  //   fetchTodos();
+  // }, []);
+
+  const createUserInDb = (uid, email, password) => {
+    return collection("users").doc(uid).set(email, password);
+  };
+  console.log(todo);
 
   useEffect(() => {
     authListener();
@@ -99,10 +150,10 @@ const App = () => {
     <RecoilRoot>
       <Router>
         <div style={{ backgroundColor: "#000", minHeight: "100vh" }}>
-          <Nav />
+          <Nav logout={logout} />
           {/* <LoginForm email={email} password={password} setEmail={setEmail} setPassword={setPassword} handleLogin={handleLogin} handleSignIn={handleSignIn} hasAccount={hasAccount} setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError} /> */}
           <Switch>
-            <Route exact path="/" component={Landing} />
+            <PrivateRoute exact path="/" component={Landing} />
             <PrivateRoute exact path="/todo" component={TodoPage} />
             <Route exact path="/login" component={LoginForm} />
           </Switch>

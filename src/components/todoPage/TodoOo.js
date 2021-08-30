@@ -38,6 +38,7 @@ function Todos() {
       return newTodoList;
     });
   };
+
   return (
     <Grid container lg={12} md={12} justify="center">
       <Grid item lg={7} md={7}>

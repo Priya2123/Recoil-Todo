@@ -40,8 +40,9 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function ButtonAppBar() {
+export default function ButtonAppBar(props) {
   const classes = useStyles();
+  const { logout } = props;
 
   return (
     <div className={classes.root}>
@@ -81,6 +82,7 @@ export default function ButtonAppBar() {
           </Link>
           {/* <Link to=""> */}
           <Button
+            onClick={logout}
             color="inherit"
             className={classes.button}
             style={{ marginLeft: "1%", zIndex: "101" }}

@@ -14,6 +14,7 @@ const LoginForm = (props) => {
     setHasAccount,
     emailError,
     passwordError,
+    signInWithGoogle,
   } = props;
 
   // const handleSubmit = async (e) => {
@@ -34,6 +35,7 @@ const LoginForm = (props) => {
       <div className="form">
         <h1 className="title">Todo</h1>
         <form>
+          {/* <button onClick={signInWithGoogle}>Sign in with google</button> */}
           <input
             type="text"
             value={email}
@@ -52,7 +54,7 @@ const LoginForm = (props) => {
             required
           />
           <div align="center">
-            <button className="button" type="submit" onClick={handleSignIn}>
+            <button className="button" type="submit" onClick={handleLogin}>
               <span>Start Kaam</span>
             </button>
           </div>

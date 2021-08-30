@@ -47,7 +47,11 @@ function AddTodo() {
       <Grid container lg={12} md={12} justify="center">
         <Grid item lg={1} md={1}>
           <Tooltip title="Add" aria-label="add">
-            <Fab size="small" style={{ backgroundColor: "#e39ff6" }}>
+            <Fab
+              // onClick={writeUserData}
+              size="small"
+              style={{ backgroundColor: "#e39ff6" }}
+            >
               <AddIcon small onClick={addItem} style={{ color: "#fff" }} />
             </Fab>
           </Tooltip>
