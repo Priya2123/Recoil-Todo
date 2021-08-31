@@ -13,7 +13,6 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
-import { Alert } from "@material-ui/core";
 
 const App = () => {
   const [email, setEmail] = useState("");
@@ -54,21 +53,15 @@ const App = () => {
           case "auth/user-not-found":
           case "auth/weak-password":
             setEmailError(err.message);
-            <Alert severity="error">
-              This is an error alert — check it out!
-            </Alert>;
+            alert(err.message);
             break;
           case "auth/wrong-password":
             setPasswordError(err.message);
-            <Alert severity="error">
-              This is an error alert — check it out!
-            </Alert>;
+            alert(err.message);
             break;
           default:
             setEmailError(err.message);
-            <Alert severity="error">
-              This is an error alert — check it out!
-            </Alert>;
+            alert(err.message);
         }
       });
     try {
@@ -96,15 +89,15 @@ const App = () => {
           case "auth/invalid-email":
           case "auth/email-already-in-use":
             setEmailError(err.message);
-            alert("Noob!!!!");
+            alert(err.message);
             break;
           case "auth/weak-password":
             setPasswordError(err.message);
-            alert("Noob!!!!");
+            alert(err.message);
             break;
           default:
             setEmailError(err.message);
-            alert("Noob!!!!");
+            alert(err.message);
         }
       });
     try {
