@@ -1,12 +1,23 @@
-import React from "react";
+import React, { useEffect } from "react";
+import { v4 as uuidv4 } from "uuid";
 import { atom, useRecoilValue, useSetRecoilState } from "recoil";
 import { todoListState } from "../../lib/atoms";
 import "./styles.css";
 import { Grid } from "@material-ui/core";
-import { doc, setDoc } from "firebase/firestore";
+import {
+  doc,
+  setDoc,
+  collection,
+  query,
+  where,
+  getDocs,
+} from "firebase/firestore";
 import { auth, db } from "../../base";
 
 function Todos() {
+  useEffect(() => {
+    fetchTodo();
+  }, []);
   // const [persistedTodo, setPersistedTodo] = useLocalStorage("todos", []);
   // const todoListState = atom({
   //   key: "todoListState",
@@ -45,7 +56,7 @@ function Todos() {
     todo: todoList,
     // uid: auth.currentUser.uid,
   };
-  const todoRef = doc(db, "todos", "work");
+  const todoRef = doc(db, uuidv4(), "work");
   setDoc(todoRef, { todo: todoList }, { merge: true });
 
   setDoc(doc(db, "todos", "work"), data);
@@ -84,6 +95,20 @@ function Todos() {
 
   // // later...
   // newCityRef.set(data);
+
+  const fetchTodo = async () => {
+    const q = query(
+      collection(db, "todos"),
+      where("userUid", "==", localStorage.getItem("userUid"))
+    );
+
+    const querySnapshot = await getDocs(q);
+    querySnapshot.forEach((doc) => {
+      // doc.data() is never undefined for query doc snapshots
+      setTodoList([...todoList, doc.data()]);
+      console.log(doc.id, " => ", doc.data());
+    });
+  };
 
   return (
     <Grid container lg={12} md={12} justify="center">

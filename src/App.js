@@ -1,13 +1,19 @@
 import React, { useEffect, useState } from "react";
 import { RecoilRoot } from "recoil";
-import { Landing, Nav, TodoPage, LoginForm } from "./components";
-import { BrowserRouter as Router, Switch, Route } from "react-router-dom";
+import { Landing, Nav, TodoPage, LoginForm, Signup } from "./components";
+import {
+  BrowserRouter as Router,
+  Switch,
+  Route,
+  useHistory,
+} from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import { auth, db } from "./base";
 import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { Alert } from "@material-ui/core";
 
 const App = () => {
   const [email, setEmail] = useState("");
@@ -17,6 +23,7 @@ const App = () => {
   const [emailError, setEmailError] = useState("");
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
+  let history = useHistory();
 
   const clearInputs = () => {
     setEmail("");
@@ -28,25 +35,44 @@ const App = () => {
     setPasswordError("");
   };
 
-  const handleLogin = () => {
+  const handleLogin = (e) => {
     clearErrors();
-    signInWithEmailAndPassword(auth, email, password).catch((err) => {
-      switch (err.code) {
-        case "auth/invalid-email":
-        case "auth/user-disabled":
-        case "auth/user-not-found":
-          setEmailError(err.message);
-          break;
-        case "auth/wrong-password":
-          setPasswordError(err.message);
-          break;
-      }
-    });
-    try {
-      localStorage.setItem("username", email);
-      localStorage.setItem("password", password);
+    e.preventDefault();
 
-      window.location.reload();
+    signInWithEmailAndPassword(auth, email, password)
+      .then((userCredential) => {
+        const user = userCredential.user;
+        localStorage.setItem("username", user.email);
+        // localStorage.setItem("password", user.password);
+        console.log(user, "user");
+        window.location = "/landing";
+      })
+      .catch((err) => {
+        switch (err.code) {
+          case "auth/invalid-email":
+          case "auth/user-disabled":
+          case "auth/user-not-found":
+          case "auth/weak-password":
+            setEmailError(err.message);
+            <Alert severity="error">
+              This is an error alert — check it out!
+            </Alert>;
+            break;
+          case "auth/wrong-password":
+            setPasswordError(err.message);
+            <Alert severity="error">
+              This is an error alert — check it out!
+            </Alert>;
+            break;
+          default:
+            setEmailError(err.message);
+            <Alert severity="error">
+              This is an error alert — check it out!
+            </Alert>;
+        }
+      });
+    try {
+      // window.location.reload();
       setError("");
     } catch (err) {
       setError("Oops, incorrect credentials.");
@@ -57,8 +83,12 @@ const App = () => {
     clearErrors();
     e.preventDefault();
     createUserWithEmailAndPassword(auth, email, password)
-      .then(() => {
-        console.log("yaay");
+      .then((userCredential) => {
+        const user = userCredential.user;
+        localStorage.setItem("username", user.email);
+        // localStorage.setItem("password", user.password);
+        console.log(user, "user");
+        window.location = "/landing";
       })
       .catch((err) => {
         console.log(err.message, "error");
@@ -66,17 +96,19 @@ const App = () => {
           case "auth/invalid-email":
           case "auth/email-already-in-use":
             setEmailError(err.message);
+            alert("Noob!!!!");
             break;
           case "auth/weak-password":
             setPasswordError(err.message);
+            alert("Noob!!!!");
             break;
+          default:
+            setEmailError(err.message);
+            alert("Noob!!!!");
         }
       });
     try {
-      localStorage.setItem("username", email);
-      localStorage.setItem("password", password);
-
-      window.location.reload();
+      // window.location.reload();
       setError("");
     } catch (err) {
       setError("Oops, incorrect credentials.");
@@ -86,10 +118,9 @@ const App = () => {
   const logout = () => {
     auth.signOut();
     try {
-      localStorage.setItem("username", "");
-      localStorage.setItem("password", "");
+      localStorage.clear();
 
-      window.location.reload();
+      // window.location.reload();
       setError("");
     } catch (err) {
       setError("Oops, incorrect credentials.");
@@ -100,19 +131,20 @@ const App = () => {
     auth.onAuthStateChanged((user) => {
       if (user) {
         clearInputs();
+        console.log(user, "userrrr");
         setUser(user);
+        localStorage.setItem("userUid", user.uid);
       } else {
         setUser("");
       }
     });
   };
 
-  console.log(user.uid);
-
   useEffect(() => {
     authListener();
   }, []);
 
+  // !!! Remove this and separate this to a different component
   if (!localStorage.getItem("username"))
     return (
       <LoginForm
@@ -135,9 +167,10 @@ const App = () => {
           <Nav logout={logout} />
           {/* <LoginForm email={email} password={password} setEmail={setEmail} setPassword={setPassword} handleLogin={handleLogin} handleSignIn={handleSignIn} hasAccount={hasAccount} setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError} /> */}
           <Switch>
-            <PrivateRoute exact path="/" component={Landing} />
+            <PrivateRoute exact path="/landing" component={Landing} />
             <PrivateRoute exact path="/todo" component={TodoPage} />
             <Route exact path="/login" component={LoginForm} />
+            <Route exact path="/signup" component={Signup} />
           </Switch>
         </div>
       </Router>

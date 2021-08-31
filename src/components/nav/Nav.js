@@ -74,7 +74,7 @@ export default function ButtonAppBar(props) {
               BUILT WITH {`<3`} BY @PRIYA
             </Typography>
           </Typography>
-          <Link to="/" className={classes.link}>
+          <Link to="/landing" className={classes.link}>
             {" "}
             <Button color="inherit" className={classes.button}>
               Home

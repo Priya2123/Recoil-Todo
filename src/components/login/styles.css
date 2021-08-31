@@ -303,3 +303,12 @@
   .error {
    color: 'red'
   }
+
+  .signup1{
+    text-align: center;
+    color: white;
+    /* margin-bottom: 30px; */
+    width: 100%;
+    font-size: 0.9em;
+    
+  }

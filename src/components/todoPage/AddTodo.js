@@ -1,10 +1,13 @@
 import React from "react";
+import { v4 as uuidv4 } from "uuid";
 import { atom, useRecoilState, useSetRecoilState } from "recoil";
 import useLocalStorage from "../../hooks/useLocalStorage";
 import { textState, todoListState } from "../../lib/atoms";
 import "./styles.css";
 import { Grid, Tooltip, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
+import { doc, setDoc } from "firebase/firestore";
+import { db } from "../../base";
 
 function AddTodo() {
   // const [persistedTodo, setPersistedTodo] = useLocalStorage("todos", []);
@@ -35,6 +38,12 @@ function AddTodo() {
       ];
       // setPersistedTodo(newTodoList);
       return newTodoList;
+    });
+    const todoRef = doc(db, "todos", uuidv4());
+    setDoc(todoRef, {
+      text,
+      isComplete: false,
+      userUid: localStorage.getItem("userUid"),
     });
     setText("");
   };
