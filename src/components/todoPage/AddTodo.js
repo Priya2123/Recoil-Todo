@@ -1,7 +1,6 @@
 import React from "react";
 import { v4 as uuidv4 } from "uuid";
-import { atom, useRecoilState, useSetRecoilState } from "recoil";
-import useLocalStorage from "../../hooks/useLocalStorage";
+import { useRecoilState, useSetRecoilState } from "recoil";
 import { textState, todoListState } from "../../lib/atoms";
 import "./styles.css";
 import { Grid, Tooltip, Fab } from "@material-ui/core";
@@ -10,20 +9,18 @@ import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../base";
 
 function AddTodo() {
-  // const [persistedTodo, setPersistedTodo] = useLocalStorage("todos", []);
   const [text, setText] = useRecoilState(textState);
   const handleKeypress = (e) => {
-    //it triggers by pressing the enter key
+    // it triggers by pressing the enter key
     if (e.keyCode === 13) {
-      // setText("");
       addItem();
-      // setText("");
     }
   };
   const setTodoList = useSetRecoilState(todoListState);
   const addItem = (e) => {
     e.preventDefault();
     if (!text.length) return;
+    const todoId = uuidv4();
     setTodoList((oldTodoList) => {
       const newTodoList = [
         ...oldTodoList,
@@ -31,17 +28,17 @@ function AddTodo() {
           text,
           isComplete: false,
           userUid: localStorage.getItem("userUid"),
+          id: todoId,
         },
       ];
-      // setPersistedTodo(newTodoList);
       return newTodoList;
-      console.log(newTodoList);
     });
-    const todoRef = doc(db, "todos", uuidv4());
+    const todoRef = doc(db, "todos", todoId);
     setDoc(todoRef, {
       text,
       isComplete: false,
       userUid: localStorage.getItem("userUid"),
+      id: todoId,
     });
     setText("");
   };

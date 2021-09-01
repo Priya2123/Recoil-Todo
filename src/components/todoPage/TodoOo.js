@@ -1,6 +1,5 @@
 import React, { useEffect } from "react";
-import { v4 as uuidv4 } from "uuid";
-import { atom, useRecoilValue, useSetRecoilState } from "recoil";
+import { useRecoilValue, useSetRecoilState } from "recoil";
 import { todoListState } from "../../lib/atoms";
 import "./styles.css";
 import { Grid } from "@material-ui/core";
@@ -11,33 +10,46 @@ import {
   query,
   where,
   getDocs,
-  onSnapshot,
+  deleteDoc,
 } from "firebase/firestore";
-import { auth, db } from "../../base";
+import { db } from "../../base";
 
 function Todos() {
   useEffect(() => {
     fetchTodo();
-    // unsub();
+
+    return () => {
+      setTodoList([]);
+    };
   }, []);
-  // const [persistedTodo, setPersistedTodo] = useLocalStorage("todos", []);
-  // const todoListState = atom({
-  //   key: "todoListState",
-  //   default: persistedTodo,
-  // });
+
   const todoList = useRecoilValue(todoListState);
   console.log(todoList);
   const setTodoList = useSetRecoilState(todoListState);
-  const deleteTodo = (index) => {
+  const deleteTodo = async (index) => {
+    const docRef = doc(db, "todos", todoList[index]["id"]);
+    await deleteDoc(docRef);
+
     setTodoList((oldTodoList) => {
       const newTodoList = oldTodoList.filter((todo, i) => {
         return i !== index;
       });
-      // setPersistedTodo(newTodoList);
+
       return newTodoList;
     });
   };
-  const toggleTodo = (index) => {
+  const toggleTodo = async (index) => {
+    const docRef = doc(db, "todos", todoList[index]["id"]);
+
+    await setDoc(
+      docRef,
+      {
+        isComplete: !todoList[index]["isComplete"],
+      },
+      {
+        merge: true,
+      }
+    );
     setTodoList((oldTodoList) => {
       const newTodoList = oldTodoList.map((todo, i) => {
         if (index === i) {
@@ -50,19 +62,10 @@ function Todos() {
           return todo;
         }
       });
-      // setPersistedTodo(newTodoList);
+
       return newTodoList;
     });
   };
-
-  const data = {
-    todo: todoList,
-    // userUid: localStorage.getItem("userUid"),
-  };
-  const todoRef = doc(db, uuidv4(), "work");
-  setDoc(todoRef, { todo: todoList }, { merge: true });
-
-  setDoc(doc(db, "todos", "work"), data);
 
   const fetchTodo = async () => {
     const q = query(
@@ -72,13 +75,10 @@ function Todos() {
 
     const querySnapshot = await getDocs(q);
     querySnapshot.forEach((doc) => {
-      // doc.data() is never undefined for query doc snapshots
-      setTodoList([...todoList, doc.data()]);
+      setTodoList((oldTodoList) => [...oldTodoList, doc.data()]);
       console.log(doc.id, " => ", doc.data());
     });
   };
-
-  // console.log(todoList);
 
   return (
     <Grid container lg={12} md={12} justify="center">
