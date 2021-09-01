@@ -12,10 +12,6 @@ import { db } from "../../base";
 function AddTodo() {
   // const [persistedTodo, setPersistedTodo] = useLocalStorage("todos", []);
   const [text, setText] = useRecoilState(textState);
-  // const todoListState = atom({
-  //   key: "todoListState",
-  //   default: persistedTodo,
-  // });
   const handleKeypress = (e) => {
     //it triggers by pressing the enter key
     if (e.keyCode === 13) {
@@ -34,10 +30,12 @@ function AddTodo() {
         {
           text,
           isComplete: false,
+          userUid: localStorage.getItem("userUid"),
         },
       ];
       // setPersistedTodo(newTodoList);
       return newTodoList;
+      console.log(newTodoList);
     });
     const todoRef = doc(db, "todos", uuidv4());
     setDoc(todoRef, {

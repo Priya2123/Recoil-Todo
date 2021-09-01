@@ -44,7 +44,8 @@ const App = () => {
         localStorage.setItem("username", user.email);
         // localStorage.setItem("password", user.password);
         console.log(user, "user");
-        window.location = "/landing";
+        window.location = "/";
+        // window.location.reload();
       })
       .catch((err) => {
         switch (err.code) {
@@ -81,7 +82,8 @@ const App = () => {
         localStorage.setItem("username", user.email);
         // localStorage.setItem("password", user.password);
         console.log(user, "user");
-        window.location = "/landing";
+        window.location = "/";
+        // window.location.reload();
       })
       .catch((err) => {
         console.log(err.message, "error");
@@ -160,7 +162,7 @@ const App = () => {
           <Nav logout={logout} />
           {/* <LoginForm email={email} password={password} setEmail={setEmail} setPassword={setPassword} handleLogin={handleLogin} handleSignIn={handleSignIn} hasAccount={hasAccount} setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError} /> */}
           <Switch>
-            <PrivateRoute exact path="/landing" component={Landing} />
+            <PrivateRoute exact path="/" component={Landing} />
             <PrivateRoute exact path="/todo" component={TodoPage} />
             <Route exact path="/login" component={LoginForm} />
             <Route exact path="/signup" component={Signup} />

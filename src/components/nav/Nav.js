@@ -54,18 +54,18 @@ export default function ButtonAppBar(props) {
             alt=""
           />
           <Typography variant="h4" className={classes.title}>
-            <Link to="/" style={{ textDecoration: "none" }}>
-              <span
-                style={{
-                  color: "#fff",
-                  fontWeight: "bold",
-                  marginLeft: "1%",
-                }}
-              >
-                To-do
-              </span>{" "}
-              <br />
-            </Link>
+            {/* <Link to="/" style={{ textDecoration: "none" }}> */}
+            <span
+              style={{
+                color: "#fff",
+                fontWeight: "bold",
+                marginLeft: "1%",
+              }}
+            >
+              To-do
+            </span>{" "}
+            <br />
+            {/* </Link> */}
             <Typography
               //   variant="caption"
               style={{ fontSize: "10px", zIndex: "101" }}
@@ -74,7 +74,7 @@ export default function ButtonAppBar(props) {
               BUILT WITH {`<3`} BY @PRIYA
             </Typography>
           </Typography>
-          <Link to="/landing" className={classes.link}>
+          <Link to="/" className={classes.link}>
             {" "}
             <Button color="inherit" className={classes.button}>
               Home

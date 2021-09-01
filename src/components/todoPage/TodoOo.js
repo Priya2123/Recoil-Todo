@@ -11,12 +11,14 @@ import {
   query,
   where,
   getDocs,
+  onSnapshot,
 } from "firebase/firestore";
 import { auth, db } from "../../base";
 
 function Todos() {
   useEffect(() => {
     fetchTodo();
+    // unsub();
   }, []);
   // const [persistedTodo, setPersistedTodo] = useLocalStorage("todos", []);
   // const todoListState = atom({
@@ -42,6 +44,7 @@ function Todos() {
           return {
             ...todo,
             isComplete: !todo.isComplete,
+            userUid: localStorage.getItem("userUid"),
           };
         } else {
           return todo;
@@ -54,47 +57,12 @@ function Todos() {
 
   const data = {
     todo: todoList,
-    // uid: auth.currentUser.uid,
+    // userUid: localStorage.getItem("userUid"),
   };
   const todoRef = doc(db, uuidv4(), "work");
   setDoc(todoRef, { todo: todoList }, { merge: true });
 
   setDoc(doc(db, "todos", "work"), data);
-
-  // db.collection("todos")
-  //   .doc("work")
-  //   .set(todoList)
-  //   .then(() => {
-  //     console.log("Document successfully written!");
-  //   });
-
-  // const docRef = await addDoc(collection(db, "todos"), {
-  //   todo: todoList,
-  //   uid: auth.currentUser.uid,
-  // });
-  // console.log("Document written with ID: ", docRef.id);
-
-  // db.collection("todos")
-  //   .add({
-  //     todo: todoList,
-  //     uid: auth.currentUser.uid,
-  //   })
-  //   .then((docRef) => {
-  //     console.log("Document written with ID: ", docRef.id);
-  //   })
-  //   .catch((error) => {
-  //     console.error("Error adding document: ", error);
-  //   });
-
-  // const data = {
-  //   todo: todoList,
-  //   uid: auth.currentUser.uid,
-  // };
-
-  // var newCityRef = db.collection("todos").doc();
-
-  // // later...
-  // newCityRef.set(data);
 
   const fetchTodo = async () => {
     const q = query(
@@ -109,6 +77,8 @@ function Todos() {
       console.log(doc.id, " => ", doc.data());
     });
   };
+
+  // console.log(todoList);
 
   return (
     <Grid container lg={12} md={12} justify="center">
