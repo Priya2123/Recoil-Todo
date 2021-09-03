@@ -13,6 +13,7 @@ import {
   deleteDoc,
 } from "firebase/firestore";
 import { db } from "../../base";
+import { StyledCrossButton } from "../../toggle/StyledComponents";
 
 function Todos() {
   useEffect(() => {
@@ -111,7 +112,9 @@ function Todos() {
                 >
                   {todo.text}
                 </label>
-                <button onClick={() => deleteTodo(index)}>x</button>
+                <StyledCrossButton onClick={() => deleteTodo(index)}>
+                  x
+                </StyledCrossButton>
               </li>
             </>
           ))}

@@ -52,6 +52,7 @@ const ToggleMode = (props) => {
               <img
                 src={checked ? daymode : nightmode}
                 alt="theme mode logo"
+                style={{ width: "100%" }}
                 className={classes.themeToggleIcon}
               />
             </span>

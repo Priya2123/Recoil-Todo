@@ -7,6 +7,7 @@ import { Grid, Tooltip, Fab } from "@material-ui/core";
 import AddIcon from "@material-ui/icons/Add";
 import { doc, setDoc } from "firebase/firestore";
 import { db } from "../../base";
+import { StyledGrid, StyledInput } from "../../toggle/StyledComponents";
 
 function AddTodo() {
   const [text, setText] = useRecoilState(textState);
@@ -60,8 +61,8 @@ function AddTodo() {
             </Fab>
           </Tooltip>
         </Grid>
-        <Grid item lg={8} md={8}>
-          <input
+        <StyledGrid item lg={8} md={8}>
+          <StyledInput
             style={{
               color: "#e39ff6",
               // border: "1px dashed #e39ff6",
@@ -73,7 +74,7 @@ function AddTodo() {
             onKeyPress={handleKeypress}
             placeholder="Add Todo"
           />
-        </Grid>
+        </StyledGrid>
       </Grid>
     </form>
   );

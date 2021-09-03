@@ -13,6 +13,9 @@ import {
   createUserWithEmailAndPassword,
   signInWithEmailAndPassword,
 } from "firebase/auth";
+import { ThemeProvider } from "styled-components";
+import useTheme from "./useTheme";
+import { StyledAppDiv } from "./toggle/StyledComponents";
 
 const App = () => {
   const [email, setEmail] = useState("");
@@ -23,6 +26,7 @@ const App = () => {
   const [passwordError, setPasswordError] = useState("");
   const [hasAccount, setHasAccount] = useState(false);
   let history = useHistory();
+  const theme = useTheme();
 
   const clearInputs = () => {
     setEmail("");
@@ -156,20 +160,22 @@ const App = () => {
       />
     );
   return (
-    <RecoilRoot>
-      <Router>
-        <div style={{ backgroundColor: "#000", minHeight: "100vh" }}>
-          <Nav logout={logout} />
-          {/* <LoginForm email={email} password={password} setEmail={setEmail} setPassword={setPassword} handleLogin={handleLogin} handleSignIn={handleSignIn} hasAccount={hasAccount} setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError} /> */}
-          <Switch>
-            <PrivateRoute exact path="/" component={Landing} />
-            <PrivateRoute exact path="/todo" component={TodoPage} />
-            <Route exact path="/login" component={LoginForm} />
-            <Route exact path="/signup" component={Signup} />
-          </Switch>
-        </div>
-      </Router>
-    </RecoilRoot>
+    <ThemeProvider theme={theme}>
+      <RecoilRoot>
+        <Router>
+          <StyledAppDiv style={{ minHeight: "100vh" }}>
+            <Nav logout={logout} />
+            {/* <LoginForm email={email} password={password} setEmail={setEmail} setPassword={setPassword} handleLogin={handleLogin} handleSignIn={handleSignIn} hasAccount={hasAccount} setHasAccount={setHasAccount} emailError={emailError} passwordError={passwordError} /> */}
+            <Switch>
+              <PrivateRoute exact path="/" component={Landing} />
+              <PrivateRoute exact path="/todo" component={TodoPage} />
+              <Route exact path="/login" component={LoginForm} />
+              <Route exact path="/signup" component={Signup} />
+            </Switch>
+          </StyledAppDiv>
+        </Router>
+      </RecoilRoot>
+    </ThemeProvider>
   );
 };
 

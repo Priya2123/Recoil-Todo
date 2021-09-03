@@ -5,6 +5,12 @@ import Lottie from "react-lottie";
 import animation from "./animation.json";
 import { Link } from "react-router-dom";
 
+import {
+  StyledTypography,
+  StyledGrid,
+  StyledStartedButton,
+} from "../../toggle/StyledComponents";
+
 const Landing = () => {
   const classes = useStyles();
 
@@ -19,13 +25,13 @@ const Landing = () => {
 
   return (
     <>
-      <Grid container lg={12} md={12} style={{ marginTop: "3%" }}>
+      <StyledGrid container lg={12} md={12} style={{ paddingTop: "3%" }}>
         <Grid item lg={12} md={12}>
           <Grid container justify="center" style={{ textAlign: "center" }}>
             <Grid item lg={12} md={12}>
-              <Typography className={classes.text} variant="h3">
+              <StyledTypography className={classes.text} variant="h3">
                 Oof, just Tasks.
-              </Typography>
+              </StyledTypography>
             </Grid>
           </Grid>
           <Grid container justify="center" lg={12} md={12}>
@@ -46,12 +52,14 @@ const Landing = () => {
           >
             <Grid item lg={2} md={2} justify="center">
               <Link to="/todo">
-                <Button className={classes.btn}>Getting Started</Button>
+                <StyledStartedButton className={classes.btn}>
+                  <StyledTypography>Get Started</StyledTypography>
+                </StyledStartedButton>
               </Link>
             </Grid>
           </Grid>
         </Grid>
-      </Grid>
+      </StyledGrid>
     </>
   );
 };

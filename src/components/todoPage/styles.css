@@ -10,7 +10,7 @@ ul {
   button {
     /* line-height: 15px; */
     padding: 0 4px 2px;
-    background: #000;
+    /* background: #000; */
     color: #e39ff6;
     border: 2px solid #e39ff6;
     font-size: 13px;
@@ -30,7 +30,7 @@ ul {
   }
   
   input[type="text"] {
-    background: #000;
+    /* background: #000; */
     border: none;
     line-height: 40px;
     border-radius: 3px;
