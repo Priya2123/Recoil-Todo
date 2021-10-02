@@ -48,6 +48,40 @@ const Profile = () => {
                       </Typography>
                     </Grid>
                   </Grid>
+                  <Grid container style={{ padding: "1% 0 0% 0" }}>
+                    <Grid item>
+                      <Typography variant="h5">
+                        Email: blahblahblah@thapar.edu
+                      </Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container style={{ padding: "1% 0 0% 0" }}>
+                    <Grid item>
+                      <Typography variant="h5">Hostel: N</Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container style={{ padding: "1% 0 0% 0" }}>
+                    <Grid item>
+                      <Typography variant="h5">Floor: 12</Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container style={{ padding: "1% 0 0% 0" }}>
+                    <Grid item>
+                      <Typography variant="h5">Laundry number: 2132</Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container style={{ padding: "1% 0 0% 0" }}>
+                    <Grid item>
+                      <Typography variant="h5">Laundry day: tues</Typography>
+                    </Grid>
+                  </Grid>
+                  <Grid container style={{ padding: "1% 0 0% 0" }}>
+                    <Grid item>
+                      <Typography variant="h5">
+                        Laundry card: card link
+                      </Typography>
+                    </Grid>
+                  </Grid>
                 </Grid>
               </Grid>
             </Grid>
