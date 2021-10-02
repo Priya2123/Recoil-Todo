@@ -107,6 +107,12 @@ const Nav = (props) => {
               <StyledTypography>Home</StyledTypography>
             </StyledButton>
           </Link>
+          <Link to="/profile" className={classes.link}>
+            {" "}
+            <StyledButton color="inherit" className={classes.button}>
+              <StyledTypography>Profile</StyledTypography>
+            </StyledButton>
+          </Link>
           <Link to="/login">
             <StyledButton
               onClick={logout}

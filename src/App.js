@@ -1,6 +1,13 @@
 import React, { useEffect, useState } from "react";
 import { RecoilRoot } from "recoil";
-import { Landing, Nav, TodoPage, LoginForm, Signup } from "./components";
+import {
+  Landing,
+  Nav,
+  TodoPage,
+  LoginForm,
+  Signup,
+  Profile,
+} from "./components";
 import {
   BrowserRouter as Router,
   Switch,
@@ -171,6 +178,7 @@ const App = () => {
               <PrivateRoute exact path="/todo" component={TodoPage} />
               <Route exact path="/login" component={LoginForm} />
               <Route exact path="/signup" component={Signup} />
+              <Route exact path="/profile" component={Profile} />
             </Switch>
           </StyledAppDiv>
         </Router>
